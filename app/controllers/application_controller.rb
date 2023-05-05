@@ -29,4 +29,25 @@ class ApplicationController < ActionController::Base
     }
     cookies[:cart]
   end
+
+  def order
+    @order ||= cookies[:order].present? ? JSON.parse(cookies[:order]) : {}
+  end
+  helper_method :order
+
+  def orders
+    @orders ||= Order.where(id: order.id).map {|order| { order: order, line_items: order.line_items } }
+  end
+  helper_method :orders
+
+  def order_total_cents
+    orders[0][:order].total_cents
+  end
+  helper_method :order_total_cents
+
+  def order_email
+    orders[0][:order].email
+  end
+  helper_method :order_email
+
 end
