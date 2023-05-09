@@ -1,4 +1,4 @@
-describe('Product Details', () => {
+describe('Add To Cart', () => {
   beforeEach(() => {
     cy.visit("/");
   });
@@ -11,7 +11,9 @@ describe('Product Details', () => {
     cy.get(".products article").should("have.length", 2);
   });
 
-  it("Should go to product details page", () => {
-    cy.get(".products article a").first().click();
+  it("Should click add to cart button", () => {
+    cy.contains("Add")
+      .first()
+      .click({ force: true });
   });
 })
